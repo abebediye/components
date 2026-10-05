@@ -1,0 +1,10 @@
+.logo-container {
+    display: inline-flex;
+    box-sizing: border-box;
+    padding: 4px; /* fallback when the padding prop isn't set (see Logo.tsx) */
+}
+
+.logo-container img {
+    width: 100%;
+    height: 100%;
+}
