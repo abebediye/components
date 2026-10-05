@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # semantic-release needs full history to analyze commits since the last release
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Install Playwright browsers
+        run: bunx playwright install --with-deps chromium
+
+      - name: Run tests
+        run: bun run test:run
+
+      - name: Build library
+        run: bun run build:lib
+
+      - name: Build Storybook
+        run: bun run build-storybook
+
+      - name: Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: bunx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # @semantic-release/npm publishes to publishConfig.registry (GitHub Packages)
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

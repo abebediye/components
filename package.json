@@ -1,6 +1,6 @@
 {
-  "name": "components",
-  "private": true,
+  "name": "@abebediye/components",
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -9,6 +9,13 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abebediye/components.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "sideEffects": [
     "**/*.css"
   ],
@@ -54,6 +61,7 @@
     "playwright": "latest",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "semantic-release": "^25.0.9",
     "storybook": "^10.6.1",
     "typescript": "~6.0.2",
     "vite": "^8.3.0",
