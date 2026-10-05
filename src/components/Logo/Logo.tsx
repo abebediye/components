@@ -1,7 +1,7 @@
 import "@/components/Logo/Logo.css";
 import { useEffect, useState } from "react";
 
-export type Brand = "webstep";
+export type Brand = "naf" | "webstep";
 export type Type = "full" | "symbol";
 export type Variant = "primary" | "secondary" | "tertiary";
 
@@ -85,5 +85,6 @@ function createBrandLogo(brand: Brand) {
 // Terse, type-safe call sites (<Logo.Webstep variant="secondary" />) that
 // all funnel through the same LogoBase rendering/asset-lookup logic.
 export const Logo = Object.assign(LogoBase, {
+    Naf: createBrandLogo("naf"),
     Webstep: createBrandLogo("webstep"),
 });
