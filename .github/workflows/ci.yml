@@ -62,7 +62,7 @@ jobs:
         run: bun run build:lib
 
       - name: Build Storybook
-        run: bun run build-storybook
+        run: bun run build:storybook
 
   release:
     needs: [build]
