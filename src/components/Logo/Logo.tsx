@@ -1,3 +1,7 @@
+// Fast Refresh's "only export components" check doesn't understand the
+// compound-component pattern below (Logo.Webstep/Logo.Naf are components
+// attached as static properties of Logo), which is intentional here.
+/* oxlint-disable react/only-export-components */
 import "@/components/Logo/Logo.css";
 import { useEffect, useState } from "react";
 
