@@ -31,7 +31,7 @@
         "lint": "oxlint",
         "build:lib": "rm -rf dist && tsc -p tsconfig.lib.json && vite build --config vite.lib.config.ts",
         "build:storybook": "storybook build",
-        "storybook": "storybook dev -p 6006",
+        "dev": "storybook dev -p 6006",
         "test": "vitest",
         "test:run": "vitest run",
         "test:coverage": "vitest run --coverage"
