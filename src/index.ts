@@ -11,3 +11,5 @@ export type {
     Variant,
 } from "@/components/Logo";
 export { Page } from "@/components/Page";
+export { Provider } from "@/components/Provider";
+export { system } from "@/theme/system";

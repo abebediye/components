@@ -37,10 +37,12 @@
         "test:coverage": "vitest run --coverage"
     },
     "peerDependencies": {
+        "@chakra-ui/react": "^3.37.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0"
     },
     "devDependencies": {
+        "@chakra-ui/react": "^3.37.0",
         "@chromatic-com/storybook": "latest",
         "@storybook/addon-a11y": "^10.6.1",
         "@storybook/addon-docs": "^10.6.1",
