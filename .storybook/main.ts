@@ -3,6 +3,9 @@ import path from "node:path";
 
 const config: StorybookConfig = {
     stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+    // Serves the whole Logo component dir at /logo so manager.ts (esbuild,
+    // no vite/tsconfig alias support) can reach its assets by URL.
+    staticDirs: [{ from: "../src/components/Logo", to: "/logo" }],
     addons: [
         "@chromatic-com/storybook",
         "@storybook/addon-vitest",
