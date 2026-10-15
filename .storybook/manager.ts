@@ -1,13 +1,15 @@
 import { addons } from "storybook/manager-api";
 import { create } from "storybook/theming/create";
 
-import brandImage from "../src/components/Logo/assets/abebediye/wordmark/primary.svg";
-
 const theme = create({
-    base: "light",
+    base: "dark",
+    colorPrimary: "#14243A",
+    appBg: "#14243A",
+    appContentBg: "#14243A",
+    barBg: "#14243A",
     brandTitle: "abebediye",
     brandUrl: "https://components.abebediye.no",
-    brandImage,
+    brandImage: "/logo/assets/abebediye/lockup/light.svg",
     brandTarget: "_self",
 });
 
