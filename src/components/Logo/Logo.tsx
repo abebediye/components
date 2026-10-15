@@ -5,9 +5,9 @@
 import "@/components/Logo/Logo.css";
 import { useEffect, useState } from "react";
 
-export type Brand = "naf" | "webstep";
-export type Type = "full" | "symbol";
-export type Variant = "primary" | "secondary" | "tertiary";
+export type Brand = "abebediye" | "naf" | "webstep";
+export type Type = "full" | "lockup" | "symbol" | "wordmark";
+export type Variant = "light" | "primary" | "secondary" | "tertiary";
 
 // Picks up any assets/{brand}/{type}/{variant}.svg file automatically -
 // drop new brand folders in without touching this file. Lazy (no
@@ -89,6 +89,7 @@ function createBrandLogo(brand: Brand) {
 // Terse, type-safe call sites (<Logo.Webstep variant="secondary" />) that
 // all funnel through the same LogoBase rendering/asset-lookup logic.
 export const Logo = Object.assign(LogoBase, {
+    Abebediye: createBrandLogo("abebediye"),
     Naf: createBrandLogo("naf"),
     Webstep: createBrandLogo("webstep"),
 });
