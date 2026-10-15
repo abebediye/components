@@ -64,10 +64,24 @@ jobs:
       - name: Build Storybook
         run: bun run build:storybook
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 1
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: storybook-static
+          path: storybook-static
+          retention-days: 1
+
   release:
     needs: [build]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
+    outputs:
+      published: ${{ steps.check-release.outputs.published }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -81,8 +95,10 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Build library
-        run: bun run build:lib
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
 
       - name: Release
         run: bunx semantic-release
@@ -90,5 +106,40 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # @semantic-release/npm publishes to publishConfig.registry (GitHub Packages)
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if a new release was published
+        id: check-release
+        run: |
+          if git describe --tags --exact-match HEAD > /dev/null 2>&1; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy-storybook:
+    needs: [release]
+    if: needs.release.outputs.published == 'true'
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: storybook-static
+          path: storybook-static
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: storybook-static
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
 
