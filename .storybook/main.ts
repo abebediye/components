@@ -6,6 +6,13 @@ const config: StorybookConfig = {
     // Serves the whole Logo component dir at /logo so manager.ts (esbuild,
     // no vite/tsconfig alias support) can reach its assets by URL.
     staticDirs: [{ from: "../src/components/Logo", to: "/logo" }],
+    // Disables Storybook's auto-composed ref for Chakra UI's public
+    // Storybook - not part of this library's own docs.
+    refs: {
+        "@chakra-ui/react": {
+            disable: true,
+        },
+    },
     addons: [
         "@chromatic-com/storybook",
         "@storybook/addon-vitest",
